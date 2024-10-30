@@ -1,0 +1,34 @@
+.header {
+    height: 10vh;
+    width: 100%;
+    background: red;
+}
+
+.UpperNav {
+    height: 10vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky; 
+    top: 0;
+    z-index: 1000;
+    background: white;
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+
+.home {
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+}
+
+.ico {
+    width: 5%;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 50px;
+}
+
+.icon {
+    color: rgb(3, 3, 3);
+}

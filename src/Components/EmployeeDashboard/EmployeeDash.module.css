@@ -1,0 +1,67 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.EmployeeDash {
+    height: auto;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.secondNav {
+    height: 30vh;
+    width: 98%;
+    background: url('../../assets/home-evening.svg');
+    background-repeat: no-repeat;
+    background-position: right; /* Position the background on the right */
+    background-size: contain;
+    margin-top: 10%;
+}
+
+.secondNav>h1 {
+    font-size: 34px;
+    font-weight: 400;
+}
+
+.secondNav>p {
+    font-size: 18px;
+    padding: 5px 0;
+    font-family: 'Poppins', sans-serif;
+    color: gray;
+}
+
+.cards {
+    height: 100vh;
+    width: 100%;
+    /* background: red; */
+}
+
+@media (max-width: 768px) {
+    .EmployeeDash {
+        height: 100vh;
+        overflow: hidden;
+        background: red;
+        z-index: 0;
+        margin-top: 50px;
+    }
+
+    .UpperNav {
+        height: 8vh; /* Reduce height for smaller screens */
+        padding: 0 5px;
+    }
+
+    .home {
+        font-size: 16px; /* Adjust font size for smaller screens */
+        margin-left: 5px;
+    }
+
+    .ico {
+        width: 60px; /* Adjust width to fit icons */
+        margin-right: 10px;
+    }
+
+    .icon {
+        font-size: 18px; /* Adjust icon size for mobile */
+    }
+}
