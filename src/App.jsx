@@ -30,11 +30,10 @@ function App() {
         <LoginPage onLogin={handleLogin} />
       ) : (
         <div className="app-container">
-          {/* <Sidebar /> */}
-          {/* <Header /> */}
+          <Sidebar />
           <div className="main-content">
             <Routes>
-              {/* <Route path="/employee-dash" element={<EmployeeDash />} /> */}
+              <Route path="/employee-dash" element={<EmployeeDash />} />
               <Route path="/forgotPass" element={<ForgotPassword />} />
               <Route path="/engage" element={<Engage />} />
               <Route path="/workLife" element={<WorkLife />} />
