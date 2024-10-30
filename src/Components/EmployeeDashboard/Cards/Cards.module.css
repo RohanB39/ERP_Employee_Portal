@@ -1,0 +1,266 @@
+.cards {
+  height: 100%;
+  width: 98.5%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cards1 {
+  height: 100%;
+  width: 33%;
+}
+
+.cards2 {
+  height: 100%;
+  width: 33%;
+}
+
+.cards3 {
+  height: 100%;
+  width: 33%;
+}
+
+.card {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  max-width: 500px;
+  height: 30%;
+  padding: 20px;
+  border: 0.5px solid rgba(213, 212, 212, 0.699);
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(15px);
+  margin-bottom: 10px;
+}
+
+.card:hover {
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  cursor: pointer;
+}
+
+.cheader {
+  color: gray;
+}
+
+.in {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.cardin1 {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  max-width: 500px;
+  height: 20%;
+  padding: 20px;
+  border: 0.5px solid rgba(213, 212, 212, 0.699);
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(15px);
+  margin-bottom: 10px;
+}
+
+.cardin1:hover {
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  cursor: pointer;
+}
+
+.cardin3:hover {
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  cursor: pointer;
+}
+
+.in1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.in > div {
+  margin-top: 30px;
+}
+
+.in1 > div > p {
+  padding: 5px 0;
+  font-size: 13px;
+}
+
+.intxt {
+  margin-top: 5.5%;
+  margin-right: -6.2%;
+  height: 100%;
+  width: 40%;
+  background-color: rgb(248, 229, 195);
+  border-radius: 10px 0px 20px 0px;
+  font-size: 8px;
+  padding: 10px;
+}
+
+.intxtPara {
+  font-size: small;
+  color: gray;
+}
+
+.cardin2 {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  max-width: 500px;
+  height: 40%;
+  padding: 20px;
+  border: 0.5px solid rgba(213, 212, 212, 0.699);
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(15px);
+  margin-bottom: 30px;
+}
+
+.cardin2:hover {
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  cursor: pointer;
+}
+
+.cardin3 {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  max-width: 500px;
+  height: 60%;
+  padding: 20px;
+  border: 0.5px solid rgba(213, 212, 212, 0.699);
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(15px);
+  margin-bottom: 10px;
+}
+
+.cardin10 {
+    max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  max-width: 500px;
+  height: 30%;
+  padding: 20px;
+  border: 0.5px solid rgba(213, 212, 212, 0.699);
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(15px);
+  margin-bottom: 10px;
+}
+
+.cardin5{
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    max-width: 500px;
+    height: 20%;
+    padding: 20px;
+    border: 0.5px solid rgba(213, 212, 212, 0.699);
+    border-radius: 20px;
+    background-color: rgba(203, 234, 241, 0.45);
+    backdrop-filter: blur(15px);
+    margin-bottom: 10px; 
+}
+
+.inSignIn {
+    height: 100%;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    width: 200%;
+}
+
+.dates {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.dates>span {
+    margin-bottom: 5px;
+}
+
+.light {
+    font-size: 13px;
+    color: gray;
+    margin: 10px 0px;
+}
+
+.dot {
+    height: 20px;
+    width: 20px;
+    background-color: rgb(138, 242, 225);
+    border-radius: 100px;
+}
+
+.bottom {
+    display: flex;
+    margin-top: 10%;
+    width: 100%;
+    justify-content: space-between;
+    width: 200%;
+}
+
+.bottom>span {
+    font-size: 15px;
+    color: blue;
+    text-decoration: underline;
+}
+
+.bottom>button {
+    padding: 8px 20px;
+    border-radius: 5px;
+    border: none;
+    background: rgb(110, 110, 254);
+    color: white;
+}
+
+.in10 {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .cards {
+        width: 100%;
+        display: block;
+    }
+
+    .cards1 {
+        width: 100%;
+    }
+
+    .cards2 {
+        margin-top: 90px;
+        width: 100%;
+    }
+
+    .cards3 {
+        width: 100%;
+    }
+}

@@ -1,21 +1,23 @@
-import React from 'react'
+import React from 'react';
+import { FiBell, FiPower, FiChevronDown } from 'react-icons/fi'; // Icons for the header
 import styles from './Header.module.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faBell, faSignOutAlt
-} from '@fortawesome/free-solid-svg-icons';
+
 const Header = () => {
     return (
-        <div className={styles.header}>
-            <div className={styles.UpperNav}>
-                <span className={styles.home}>Home</span>
-                <div className={styles.ico}>
-                    <FontAwesomeIcon icon={faBell} className={styles.icon} />
-                    <FontAwesomeIcon icon={faSignOutAlt} className={styles.icon} />
-                </div>
+        <header className={styles.header}>
+            <div className={styles.left}>
+                <div className={styles.dot}></div>
+                <span className={styles.home}>Tecti HR Portal</span>
             </div>
-        </div>
-    )
-}
+            <div className={styles.right}>
+                <span className={styles.quickLinks}>
+                    Quick Links <FiChevronDown className={styles.dropdownIcon} />
+                </span>
+                <FiBell className={styles.icon} />
+                <FiPower className={styles.icon} />
+            </div>
+        </header>
+    );
+};
 
-export default Header
+export default Header;
