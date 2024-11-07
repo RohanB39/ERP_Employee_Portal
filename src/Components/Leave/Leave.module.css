@@ -1,0 +1,33 @@
+.leaveNavbar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+    margin-top: 10px;
+  }
+  
+  .applyButton,
+  .downloadButton {
+    padding: 8px 25px;
+    border: none;
+    cursor: pointer;
+    background-color: #007bff; /* Example color */
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .downloadButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .year {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-right: 10px;
+  }
+  
