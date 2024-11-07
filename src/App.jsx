@@ -17,7 +17,8 @@ import ApplyLeave from './Components/Leave/ApplyLeave/ApplyLeave';
 import Attendance from './Components/Attendance/Attendance';
 import Calender from './Components/Attendance/Calender/Calender';
 import './App.css';
-import Header from './Components/Header/Header';
+import { EmployeeProvider } from './EmployeeContext';
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const handleLogin = () => {
@@ -25,33 +26,37 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
-      {!isLoggedIn ? (
-        <LoginPage onLogin={handleLogin} />
-      ) : (
-        <div className="app-container">
-          <Sidebar />
-          <div className="main-content">
-            <Routes>
-              <Route path="/employee-dash" element={<EmployeeDash />} />
-              <Route path="/forgotPass" element={<ForgotPassword />} />
-              <Route path="/engage" element={<Engage />} />
-              <Route path="/workLife" element={<WorkLife />} />
-              <Route path="/kudos" element={<Kudos />} />
-              <Route path="/feedback" element={<Feedback />} /> 
-              <Route path="/todo" element={<TODO />} /> 
-              <Route path="/review" element={<Review />} /> 
-              <Route path="/salary" element={<Salary />} /> 
-              <Route path="/payslip" element={<Payslip />} /> 
-              <Route path="/leave" element={<Leave />} /> 
-              <Route path="/apply" element={<ApplyLeave />} /> 
-              <Route path="/attendance" element={<Attendance />} /> 
-              <Route path="/attendance-info" element={<Calender />} /> 
-            </Routes>
+    <EmployeeProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/forgotPass" element={<ForgotPassword />} />
+        </Routes>
+        {!isLoggedIn ? (
+          <LoginPage onLogin={handleLogin} />
+        ) : (
+          <div className="app-container">
+            <Sidebar />
+            <div className="main-content">
+              <Routes>
+                <Route path="/" element={<EmployeeDash />} />
+                <Route path="/engage" element={<Engage />} />
+                <Route path="/workLife" element={<WorkLife />} />
+                <Route path="/kudos" element={<Kudos />} />
+                <Route path="/feedback" element={<Feedback />} />
+                <Route path="/todo" element={<TODO />} />
+                <Route path="/review" element={<Review />} />
+                <Route path="/salary" element={<Salary />} />
+                <Route path="/payslip" element={<Payslip />} />
+                <Route path="/leave" element={<Leave />} />
+                <Route path="/apply" element={<ApplyLeave />} />
+                <Route path="/attendance" element={<Attendance />} />
+                <Route path="/attendance-info" element={<Calender />} />
+              </Routes>
+            </div>
           </div>
-        </div>
-      )}
-    </BrowserRouter>
+        )}
+      </BrowserRouter>
+    </EmployeeProvider>
   );
 }
 export default App;
