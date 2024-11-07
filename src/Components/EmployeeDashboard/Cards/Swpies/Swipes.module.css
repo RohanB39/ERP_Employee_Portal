@@ -1,0 +1,56 @@
+.popupContainer {
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    width: 360px;
+    max-width: 100%; /* Allows the container to adjust to the screen width */
+    box-sizing: border-box;
+}
+
+.detailsSection {
+    margin-bottom: 20px;
+}
+
+.detailsSection p {
+    margin: 5px 0;
+    font-size: 16px; /* Adjust font size */
+}
+
+.tableContainer {
+    overflow-x: auto;
+}
+
+.swipesTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.swipesTable th, .swipesTable td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 14px; /* Adjust font size */
+}
+
+.swipesTable th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 480px) {
+    .popupContainer {
+        padding: 15px;
+        width: 100%; /* Full width for smaller screens */
+        border-radius: 8px;
+    }
+
+    .detailsSection p {
+        font-size: 14px; /* Smaller font size */
+    }
+
+    .swipesTable th, .swipesTable td {
+        padding: 8px;
+        font-size: 12px; /* Smaller font size for table cells */
+    }
+}
