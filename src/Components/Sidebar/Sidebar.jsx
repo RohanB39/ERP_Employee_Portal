@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom'; // Import NavLink for active links
+import { NavLink } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faHome, faSatelliteDish, faTasks, faMoneyCheck, faCalendarAlt, faUserClock,
     faChevronDown, faChevronUp, faBars, faUserCircle, faCogs
 } from '@fortawesome/free-solid-svg-icons';
-
 import Logo from '../../assets/Logo.png'
+import { useLocation } from 'react-router-dom';
 
 const Sidebar = () => {
     const [openDropdown, setOpenDropdown] = useState(null);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const location = useLocation();
+    const employeeId = location.state?.employeeId
 
     const toggleDropdown = (dropdown) => {
         setOpenDropdown(prevState => (prevState === dropdown ? null : dropdown));
@@ -38,7 +40,7 @@ const Sidebar = () => {
             <div className={styles.profile}>
                 <FontAwesomeIcon icon={faUserCircle} className={styles.avatar} />
                 <div className={styles.profileInfo}>
-                    <p className={styles.username}>Hi Rohan</p>
+                    <p className={styles.username}>Hi {employeeId}</p>
                     <p className={styles.viewInfo}>View My Info</p>
                 </div>
                 <FontAwesomeIcon icon={faCogs} className={styles.settingsIcon} />
@@ -48,7 +50,7 @@ const Sidebar = () => {
             <ul className={styles.navList}>
                 <li className={styles.navItem}>
                     <NavLink
-                        to="/employee-dash"
+                        to="/"
                         className={({ isActive }) =>
                             isActive ? `${styles.navLink} ${styles.active}` : styles.navLink
                         }
