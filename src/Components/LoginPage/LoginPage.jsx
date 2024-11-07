@@ -10,7 +10,7 @@ import LoginBg3 from '../../assets/LoginBG3.jpg';
 
 const images = [LoginBg1, LoginBg2, LoginBg3];
 
-const LoginPage = ({onLogin}) => {
+const LoginPage = ({ onLogin }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [slide, setSlide] = useState(true);
     const [employeeId, setEmployeeId] = useState('');
@@ -45,7 +45,7 @@ const LoginPage = ({onLogin}) => {
     const handleLogin = async (e) => {
         e.preventDefault();
         setError('');
-
+        console.log('Login attempt initiated');
         try {
             // Query Firestore for the employee with the entered employeeId
             const employeeQuery = query(
@@ -53,25 +53,21 @@ const LoginPage = ({onLogin}) => {
                 where('employeeId', '==', employeeId)
             );
             const querySnapshot = await getDocs(employeeQuery);
-
             if (querySnapshot.empty) {
                 setError('Employee ID not found');
                 return;
             }
-
             // Check the employee's status and password
             const employeeData = querySnapshot.docs[0].data();
             if (employeeData.Status !== 'Onboarded') {
                 setError('Employee is not onboarded yet');
                 return;
             }
-
             if (employeeData.password !== password) {
                 setError('Incorrect password');
                 return;
             }
-
-            // If "Remember Me" is checked, store credentials in localStorage
+            // store credentials in localStorage
             if (rememberMe) {
                 localStorage.setItem('employeeId', employeeId);
                 localStorage.setItem('password', password);
@@ -79,9 +75,9 @@ const LoginPage = ({onLogin}) => {
                 localStorage.removeItem('employeeId');
                 localStorage.removeItem('password');
             }
-
+            console.log('Navigating to employee-dash with ID:', employeeId);
             onLogin();
-            navigate('/employee-dash');
+            navigate('/', { state: { employeeId: employeeId } });
         } catch (error) {
             setError('Login failed. Please try again.');
             console.error('Error logging in:', error);
@@ -89,7 +85,7 @@ const LoginPage = ({onLogin}) => {
     };
 
     const handleForgotPassword = () => {
-        navigate('/forgotPass'); // Navigate to the Forgot Password page
+        navigate('/forgotPass');
     };
 
     const handleRememberMeChange = (e) => {
