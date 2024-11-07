@@ -2,6 +2,8 @@
     height: 100vh;
     width: 100%;
     /* background: red; */
+    overflow-x: hidden;
+    scrollbar-width: 0px;
 }
 
 .goodThoughts {
