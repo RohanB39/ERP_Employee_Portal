@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,12 +8,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Logo from '../../assets/Logo.png'
 import { useLocation } from 'react-router-dom';
+import { useEmployee } from '../../EmployeeContext';
 
 const Sidebar = () => {
     const [openDropdown, setOpenDropdown] = useState(null);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const location = useLocation();
-    const employeeId = location.state?.employeeId
+    // const employeeId = location.state?.employeeId
+    const { employeeId, setEmployeeId } = useEmployee();
 
     const toggleDropdown = (dropdown) => {
         setOpenDropdown(prevState => (prevState === dropdown ? null : dropdown));
@@ -22,6 +24,12 @@ const Sidebar = () => {
     const handleSidebarToggle = () => {
         setIsSidebarOpen(prevState => !prevState);
     };
+
+    useEffect(() => {
+        if (!employeeId && location.state?.employeeId) {
+          setEmployeeId(location.state.employeeId);
+        }
+      }, [location.state, employeeId, setEmployeeId]);
 
     return (
         <div className={`${styles.sidebar} ${isSidebarOpen ? styles.open : styles.close}`}>
@@ -211,22 +219,6 @@ const Sidebar = () => {
                                 >
                                     <span>Leave Apply</span>
                                 </NavLink>
-                                {/* <NavLink
-                                    to="/balance"
-                                    className={({ isActive }) =>
-                                        isActive ? `${styles.navLink} ${styles.active}` : styles.navLink
-                                    }
-                                >
-                                    <span>Balance</span>
-                                </NavLink> */}
-                                {/* <NavLink
-                                    to="/calander"
-                                    className={({ isActive }) =>
-                                        isActive ? `${styles.navLink} ${styles.active}` : styles.navLink
-                                    }
-                                >
-                                    <span>Calander</span>
-                                </NavLink> */}
                             </div>
                         </div>
                     </ul>
@@ -261,15 +253,6 @@ const Sidebar = () => {
                                 >
                                     <span>Attendance Calander</span>
                                 </NavLink>
-                                {/* <NavLink
-                                    to="/documents"
-                                    className={({ isActive }) =>
-                                        isActive ? `${styles.navLink} ${styles.active}` : styles.navLink
-                                    }
-                                >
-                                    <FontAwesomeIcon icon={faUserClock} className={styles.icon} />
-                                    <span>Documents</span>
-                                </NavLink> */}
                             </div>
                         </div>
                     </ul>
