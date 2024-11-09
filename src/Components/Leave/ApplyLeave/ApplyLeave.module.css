@@ -1,0 +1,230 @@
+.leaveHeader {
+  padding: 10px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.innerheader {
+  width: 31%;
+  border-radius: 5px;
+  border: 0.5px solid rgba(128, 128, 128, 0.442);
+}
+
+.leaveBtn {
+  padding: 8px 30px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  color: rgb(84, 83, 83);
+  border-radius: 5px 0px 0px 5px;
+  transition: background-color 0.3s ease;
+}
+
+.pendingbtn {
+  padding: 8px 30px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  color: rgb(84, 83, 83);
+  border-radius: 0px 0px 0px 0px;
+  transition: background-color 0.3s ease;
+}
+
+.historybtn {
+  padding: 8px 30px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  color: rgb(84, 83, 83);
+  border-radius: 0px 5px 5px 0px;
+  transition: background-color 0.3s ease;
+}
+
+.active {
+  background-color: rgb(131, 186, 254);
+  color: black;
+}
+
+.applyBox {
+  height: 70vh;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.LeaveBox {
+  height: 10vh;
+  width: 10%;
+  display: flex;
+}
+
+.line {
+  height: 40%;
+  width: 2px;
+  background: gray;
+  border-radius: 10px;
+  margin-right: 5px;
+}
+
+.lve {
+  font-size: 20px;
+  color: rgb(69, 69, 69);
+}
+
+.mainBox {
+  width: 80%;
+  border: 0.5px solid rgba(128, 128, 128, 0.497);
+  padding: 30px;
+  border-radius: 5px;
+}
+
+.topContent {
+  background: #ffffe8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.topContent > p {
+  font-size: 12px;
+}
+
+.hideInfo {
+    border: none;
+    outline: none;
+    color: #0056b3;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 12px;
+    width: 100%;
+    float: right;
+    display: flex;
+    justify-content: end;
+    background: white;
+}
+
+.Header {
+  width: 100%;
+  padding: 10px;
+}
+
+.leaveType {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.lvetype {
+  font-size: 12px;
+  color: gray;
+}
+
+.lvetype > span {
+  color: red;
+}
+
+.leaves {
+  width: 40%;
+  padding: 10px;
+  border: 1px solid gray;
+  outline: none;
+  border-radius: 5px;
+  color: gray;
+}
+
+.frequency {
+  width: 70%;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.from {
+  display: flex;
+  flex-direction: column;
+}
+
+.fromDate {
+  padding: 10px;
+  margin-top: 5px;
+  outline: none;
+  width: 140%;
+  color: gray;
+  cursor: pointer;
+}
+
+.to {
+  display: flex;
+  flex-direction: column;
+}
+
+.toDate {
+  padding: 10px;
+  margin-top: 5px;
+  outline: none;
+  width: 140%;
+  color: gray;
+  cursor: pointer;
+}
+
+.reason {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.reasn {
+  font-size: 12px;
+  color: gray;
+}
+
+.reasn > span {
+  color: red;
+}
+
+.resontext {
+  outline: none;
+  padding: 10px;
+}
+
+.buttons {
+  padding: 10px;
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.submit {
+  padding: 10px 45px;
+  border: none;
+  background: rgb(183, 255, 183);
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+.submit:hover {
+  background: rgb(41, 57, 41);
+  cursor: pointer;
+  color: white;
+  transition: all 0.22s ease-in;
+}
+
+.cancel {
+  padding: 10px 45px;
+  border: none;
+  background: rgb(222, 223, 222);
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+.cancel:hover {
+  background: rgb(189, 188, 188);
+  cursor: pointer;
+  color: rgb(12, 12, 12);
+  transition: all 0.22s ease-in;
+}
