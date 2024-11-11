@@ -1,0 +1,209 @@
+.container {
+    padding: 20px;
+  }
+  
+  .cardsContainer {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap; /* Ensures cards wrap on smaller screens */
+    gap: 30px; /* Increased gap between the cards */
+    margin-top: 20px;
+  }
+  
+  .card {
+    width: 250px; /* Increased card width */
+    height: 40px; /* Increased card height */
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #6c7cfa, #8d99fc);
+    color: white; 
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  
+  .card p {
+    font-size: 20px; /* Larger value size */
+    font-weight: bold;
+    margin-top: 10px;
+    color: #ffeb3b; /* Bright color for the value */
+    letter-spacing: 1px;
+  }
+  
+  /* Calendar Styles */
+  /* Calendar container */
+.calendarContainer {
+    margin-top: 40px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Calendar header */
+  .calendarHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  
+  .calendarHeader button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .calendarHeader button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Calendar grid container */
+  .calendarGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    font-size: 1rem;
+  }
+  
+  /* Day label (Sun, Mon, etc.) */
+  .dayLabel {
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+  }
+  
+  /* Each day cell in the calendar */
+  .calendarDay {
+    padding: 15px;
+    text-align: center;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .calendarDay:hover {
+    background-color: #e0f7fa;
+  }
+  
+  .calendarDay .dayLabel {
+    font-size: 1.1rem;
+  }
+  
+  /* Status button (Present/Absent) */
+  .statusButton {
+    width: 100%;
+    margin-top: 5px;
+    padding: 5px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .statusButton.absent {
+    background-color: #f44336;
+    color: #fff;
+  }
+  
+  .statusButton.present {
+    background-color: #4caf50;
+    color: #fff;
+  }
+  
+  .statusButton:hover {
+    opacity: 0.8;
+  }
+
+  /* Style for present days */
+.presentDay {
+    background-color: #4caf50; /* Green background for present days */
+  }
+  
+  .statusButton.present {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .statusButton.absent {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  
+  /* Responsive Design for Smaller Screens */
+  @media (max-width: 768px) {
+    .calendarGrid {
+      grid-template-columns: repeat(7, 1fr); /* Ensure it's still a 7-column grid on mobile */
+    }
+  
+    .calendarDay {
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+  
+    .calendarHeader {
+      font-size: 1rem;
+    }
+  
+    .calendarHeader button {
+      padding: 8px 16px;
+    }
+  
+    .statusButton {
+      font-size: 0.8rem;
+    }
+  }
+  
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .cardsContainer {
+      justify-content: center;
+    }
+  
+    .card {
+      width: 220px;
+      height: 160px;
+    }
+  
+    .calendar-grid {
+      grid-template-columns: repeat(5, 1fr); /* Adjust columns for smaller screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .card {
+      width: 180px;
+      height: 150px;
+    }
+  
+    .calendar-grid {
+      grid-template-columns: repeat(4, 1fr); /* Adjust columns further for phones */
+    }
+  }
+  

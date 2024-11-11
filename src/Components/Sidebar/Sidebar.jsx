@@ -235,12 +235,12 @@ const Sidebar = () => {
                         <FontAwesomeIcon icon={faUserClock} className={styles.icon} />
                         <span>Attendance</span>
                     </NavLink>
-                    <FontAwesomeIcon
+                    {/* <FontAwesomeIcon
                         icon={openDropdown === 'attendance' ? faChevronUp : faChevronDown}
                         className={styles.chevron}
-                    />
+                    /> */}
                 </li>
-                {openDropdown === 'attendance' && (
+                {/* {openDropdown === 'attendance' && (
                     <ul className={styles.dropdownList}>
                         <div className={styles.dropdownListItem}>
                             <span className={styles.Line}></span>
@@ -256,7 +256,7 @@ const Sidebar = () => {
                             </div>
                         </div>
                     </ul>
-                )}
+                )} */}
             </ul>
         </div>
     );

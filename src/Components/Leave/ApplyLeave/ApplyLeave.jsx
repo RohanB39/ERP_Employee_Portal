@@ -17,6 +17,7 @@ const ApplyLeave = () => {
   const [toDate, setToDate] = useState('');
   const [leaveBalance, setLeaveBalance] = useState({ casual: 0, earned: 0, hpl: 0 });
   const [daysRequested, setDaysRequested] = useState(0);
+  const [reason, setReason] = useState('');
 
   useEffect(() => {
     if (!employeeId && location.state?.employeeId) {
@@ -67,7 +68,7 @@ const ApplyLeave = () => {
   }, [fromDate, toDate]);
 
   const handleSubmit = async () => {
-    if (!leaveType || !fromDate || !toDate) {
+    if (!leaveType || !fromDate || !toDate || !reason) {
       Swal.fire({
         icon: 'warning',
         title: 'Missing Fields',
@@ -89,18 +90,26 @@ const ApplyLeave = () => {
       }
       if (leaveType && daysRequested > 0) {
         const updatedLeaveBalance = { ...leaveBalance };
-        updatedLeaveBalance[leaveType] -= daysRequested;
+        const leaveApplicationDetails = {
+          leaveType,
+          daysRequested,
+          fromDate,
+          toDate,
+          reason,
+          status: 'Pending',
+          appliedDate: new Date().toISOString(),
+        };
         await updateDoc(docRef, {
           [`leaveInfo.${leaveType}Leave`]: updatedLeaveBalance[leaveType],
-          [`leaveInfo.${leaveType}DaysRequested`]: daysRequested,
+          [`LeaveApplications.${leaveType}_${Date.now()}`]: leaveApplicationDetails,
         });
-  
+
         Swal.fire({
           icon: 'success',
           title: 'Leave Submitted',
           text: `You have successfully applied for ${daysRequested} day(s) of leave.`,
         });
-  
+
         setLeaveType('');
         setFromDate('');
         setToDate('');
@@ -120,7 +129,7 @@ const ApplyLeave = () => {
       });
     }
   };
-  
+
 
   const handleCancel = () => {
     Swal.fire({
@@ -225,7 +234,11 @@ const ApplyLeave = () => {
 
               <div className={styles.reason}>
                 <label className={styles.reasn}>Reason <span>*</span></label>
-                <textarea className={styles.resontext}></textarea>
+                <textarea
+                  className={styles.resontext}
+                  value={reason}
+                  onChange={(e) => setReason(e.target.value)}
+                />
               </div>
 
               <div className={styles.buttons}>
@@ -235,8 +248,8 @@ const ApplyLeave = () => {
             </div>
           </div>
         )}
-        {activeComponent === 'pending' && <Pending />}
-        {activeComponent === 'history' && <History />}
+        {activeComponent === 'pending' && <Pending employeeId={employeeId} />}
+        {activeComponent === 'history' && <History employeeId={employeeId} />}
       </div>
     </div>
   );

@@ -5,9 +5,10 @@ import track from '../../../assets/track.svg';
 import payslip from '../../../assets/payslip.svg';
 import ItDec from '../../../assets/itDec.svg';
 import { useLocation } from 'react-router-dom';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { fireDB } from '../../Firebase/FirebaseConfig';
 import Swipes from './Swpies/Swipes';
+import Swal from 'sweetalert2';
 
 const Cards = () => {
     const [currentDate, setCurrentDate] = useState('');
@@ -21,6 +22,7 @@ const Cards = () => {
     const [designation, setDesignation] = useState('');
     const [fullName, setFullName] = useState('');
     const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [buttonText, setButtonText] = useState('Sign In'); 
 
     const togglePopup = () => {
         setIsPopupOpen(!isPopupOpen);
@@ -29,7 +31,8 @@ const Cards = () => {
     useEffect(() => {
         const updateDateTime = () => {
             const now = new Date();
-            setCurrentDate(now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }));
+            const formattedDate = now.toLocaleDateString('en-GB').replace(/\//g, '-'); // "29-11-2024"
+            setCurrentDate(formattedDate);
             setCurrentDay(now.toLocaleDateString('en-US', { weekday: 'long' }));
             setCurrentTime(now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
         };
@@ -63,7 +66,7 @@ const Cards = () => {
 
     useEffect(() => {
         const checkSignInStatus = async () => {
-            if (fullName) {  // Run only when fullName has a value
+            if (fullName) {
                 const dateDocId = new Date().toISOString().split('T')[0];
                 const employeeDocRef = doc(fireDB, 'EMP_SIGNIN_SIGNOUT', `${fullName} ${dateDocId}`);
                 try {
@@ -92,44 +95,76 @@ const Cards = () => {
         return () => clearInterval(intervalId);
     }, [isSignedIn]);
 
+    useEffect(() => {
+        // Check local storage on component load
+        const savedSignInStatus = localStorage.getItem(`isSignedIn_${employeeId}`);
+        if (savedSignInStatus === 'true') {
+            setIsSignedIn(true);
+            setButtonText('Sign Out');
+        }
+    }, [employeeId]);
+
     const handleSignIn = async () => {
         const dateDocId = new Date().toISOString().split('T')[0];
-        const employeeDocRef = doc(fireDB, 'EMP_SIGNIN_SIGNOUT', `${fullName} ${dateDocId}`);
+        const employeeDocRef = doc(fireDB, 'EMP_SIGNIN_SIGNOUT', employeeId);
 
         const currentHours = new Date().getHours();
-        let shiftType;
-
-        if (currentHours >= 3 && currentHours < 12) {
-            shiftType = "A"; 
-        } else if (currentHours >= 11 && currentHours < 20) {
-            shiftType = "B"; 
-        } else {
-            shiftType = "C"; 
-        }
+        const shiftType = currentHours >= 3 && currentHours < 12 ? "A" :
+                          currentHours >= 11 && currentHours < 20 ? "B" : "C";
 
         try {
             if (!isSignedIn) {
+                // Sign-in logic
                 await setDoc(employeeDocRef, {
-                    employeeName: fullName,
-                    designation: designation,
-                    signInDate: currentDate,
-                    signInDay: currentDay,
-                    signInTime: currentTime,
-                    signOutTime: '',
-                    isSignedIn: true,
-                    shiftType: shiftType
+                    [dateDocId]: {
+                        employeeName: fullName,
+                        designation: designation,
+                        signInDate: new Date().toLocaleDateString('en-GB'),
+                        signInTime: new Date().toLocaleTimeString(),
+                        signOutTime: '',
+                        isSignedIn: true,
+                        shiftType: shiftType
+                    }
                 }, { merge: true });
-                alert('Sign-in successfull.');
+
+                Swal.fire({
+                    title: 'Sign-in Successful',
+                    text: 'You have successfully signed in!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+
+                // Update local storage and state
+                localStorage.setItem(`isSignedIn_${employeeId}`, 'true');
+                setButtonText('Sign Out');
+                setIsSignedIn(true);
             } else {
-                await setDoc(employeeDocRef, {
-                    signOutTime: currentTime,
-                    isSignedIn: false,
-                }, { merge: true });
-                alert('Sign-out successfull.');
+                // Sign-out logic
+                await updateDoc(employeeDocRef, {
+                    [`${dateDocId}.signOutTime`]: new Date().toLocaleTimeString(),
+                    [`${dateDocId}.isSignedIn`]: false,
+                });
+
+                Swal.fire({
+                    title: 'Sign-out Successful',
+                    text: 'You have successfully signed out!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+
+                // Update local storage and state
+                localStorage.setItem(`isSignedIn_${employeeId}`, 'false');
+                setButtonText('Sign Out');  // Keep button as 'Sign Out' even after signing out
+                setIsSignedIn(false);
             }
-            setIsSignedIn(!isSignedIn);
         } catch (error) {
-            console.error('Error saving sign-in data:', error);
+            console.error('Error saving sign-in/sign-out data:', error);
+            Swal.fire({
+                title: 'Error',
+                text: 'Failed to save sign-in/sign-out data. Please try again.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
         }
     };
 
@@ -184,7 +219,7 @@ const Cards = () => {
                         </div>
                         <div className={card.bottom}>
                             <span onClick={togglePopup} style={{ cursor: 'pointer' }}>View Swipes</span>
-                            <button onClick={handleSignIn}>{isSignedIn ? 'Sign Out' : 'Sign In'}</button>
+                            <button onClick={handleSignIn}>{buttonText}</button>
                         </div>
                     </div>
                 </div>
