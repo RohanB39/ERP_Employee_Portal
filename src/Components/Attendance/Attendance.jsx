@@ -4,7 +4,7 @@ import Header from '../Header/Header';
 import dayjs from 'dayjs';
 import { useEmployee } from '../../EmployeeContext';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { fireDB } from '../Firebase/FirebaseConfig'; 
+import { fireDB } from '../Firebase/FirebaseConfig';
 
 const Attendance = () => {
   const [currentMonth, setCurrentMonth] = useState(dayjs());
@@ -12,7 +12,7 @@ const Attendance = () => {
   const { employeeId, setEmployeeId } = useEmployee();
   const totalDaysInMonth = currentMonth.daysInMonth();
   const daysInMonth = Array.from({ length: totalDaysInMonth }, (_, i) => i + 1);
-  const today = dayjs(); 
+  const today = dayjs();
   const [avgActualWorkHours, setAvgActualWorkHours] = useState(0);
   const currentMonthh = dayjs().format('YYYY-MM');
 
@@ -23,7 +23,7 @@ const Attendance = () => {
   const nextMonth = () => {
     setCurrentMonth(currentMonth.add(1, 'month'));
   };
-  
+
   const fetchAttendanceData = async () => {
     if (employeeId) {
       try {
@@ -32,24 +32,24 @@ const Attendance = () => {
         const querySnapshot = await getDocs(q);
         let employeeFound = false;
         querySnapshot.forEach(doc => {
-          console.log("Document ID:", doc.id); // Log document ID
+          console.log("Document ID:", doc.id);
           if (doc.id === employeeId) {
             employeeFound = true;
             const data = doc.data();
             console.log("Fetched Document Data: ", data); // Log the fetched data
-    
+
             // Loop through the document data to check for a matching signInDate
             Object.keys(data).forEach(date => {
               if (data[date]?.signInDate) {
                 // Ensure the sign-in date is in the correct format
                 const signInDate = dayjs(data[date].signInDate, 'YYYY-MM-DD').startOf('day').format('YYYY-DD-MM');
                 console.log("Sign In Date (formatted): ", signInDate); // Log the formatted sign-in date
-    
+
                 // Now check if the signInDate matches the current day being displayed in the calendar
                 daysInMonth.forEach(day => {
                   const formattedCurrentDate = currentMonth.format('YYYY-MM') + '-' + (day < 10 ? '0' + day : day); // Format to 'YYYY-MM-DD'
                   console.log("Formatted Current Date (to compare): ", formattedCurrentDate); // Log the formatted date for comparison
-    
+
                   if (signInDate === formattedCurrentDate) {
                     setAttendanceData(prevData => {
                       const updatedData = { ...prevData, [formattedCurrentDate]: 'Present' };
@@ -62,14 +62,57 @@ const Attendance = () => {
             });
           }
         });
-    
+
         // If no data was found for the employee in the EMP_SIGNIN_SIGNOUT collection, log it
         if (!employeeFound) {
           console.log("No attendance data found for Employee ID:", employeeId);
         }
-    
+
       } catch (error) {
         console.error("Error fetching attendance data: ", error);
+      }
+    }
+  };
+
+  const fetchLeaveData = async () => {
+    if (employeeId) {
+      try {
+        console.log("Fetching leave data for Employee ID:", employeeId);
+
+        const employeeDocQuery = query(collection(fireDB, 'employees'), where("employeeId", "==", employeeId));
+        const employeeSnapshot = await getDocs(employeeDocQuery);
+
+        employeeSnapshot.forEach(employeeDoc => {
+          const employeeData = employeeDoc.data();
+          const leaveApplications = employeeData.LeaveApplications;
+
+          // Check if LeaveApplications exists and is an object
+          if (leaveApplications && typeof leaveApplications === 'object') {
+            console.log("Leave Applications found:", leaveApplications);
+
+            // Convert the object into an array of leave objects
+            const leaveArray = Object.values(leaveApplications);
+
+            leaveArray.forEach(leave => {
+              const fromDate = dayjs(leave.fromDate, 'YYYY-MM-DD');
+              const toDate = dayjs(leave.toDate, 'YYYY-MM-DD');
+
+              for (let date = fromDate; date.isBefore(toDate) || date.isSame(toDate, 'day'); date = date.add(1, 'day')) {
+                const formattedDate = date.format('YYYY-MM-DD');
+                console.log(`Setting "On Leave" for date: ${formattedDate}`);
+
+                setAttendanceData(prevData => ({
+                  ...prevData,
+                  [formattedDate]: 'On Leave'
+                }));
+              }
+            });
+          } else {
+            console.log("LeaveApplications is not a valid object or is missing:", leaveApplications);
+          }
+        });
+      } catch (error) {
+        console.error("Error fetching leave data: ", error);
       }
     }
   };
@@ -83,9 +126,9 @@ const Attendance = () => {
   };
 
   useEffect(() => {
-    // Fetch attendance data when the employeeId is set
     if (employeeId) {
       fetchAttendanceData();
+      fetchLeaveData();
     }
   }, [employeeId, currentMonth]);
 
@@ -95,87 +138,16 @@ const Attendance = () => {
     }
   }, [location.state, employeeId, setEmployeeId]);
 
-  const fetchActualWorkHours = async () => {
-    if (employeeId) {
-      try {
-        const q = query(collection(fireDB, 'EMP_SIGNIN_SIGNOUT'));
-        const querySnapshot = await getDocs(q);
-        let totalWorkHours = 0;
-        let daysWithSignInOut = 0;
-        querySnapshot.forEach(doc => {
-          if (doc.id === employeeId) {
-            const data = doc.data();
-            console.log('Employee Data:', data);
-            Object.keys(data).forEach(date => {
-              const dateObj = dayjs(date, 'YYYY-MM-DD');
-              if (dateObj.format('YYYY-MM') === currentMonthh) {
-                const signInTime = data[date]?.signInTime;
-                const signOutTime = data[date]?.signOutTime;
-                // Log the signInTime and signOutTime to debug
-                console.log(`SignInTime: ${signInTime}, SignOutTime: ${signOutTime}`);
-                // Ensure both signInTime and signOutTime are present
-                if (signInTime && signOutTime) {
-                  const signIn = dayjs(signInTime, 'h:mm:ss A', true);
-                  const signOut = dayjs(signOutTime, 'h:mm:ss A', true);
-                  // Check if both signIn and signOut are valid
-                  if (signIn.isValid() && signOut.isValid() && signOut.isAfter(signIn)) {
-                    const workHours = signOut.diff(signIn, 'hour', true); // Calculate hours as float
-                    totalWorkHours += workHours;
-                    daysWithSignInOut += 1;
-                  } else {
-                    console.log(`Invalid time or signOut is before signIn for ${date}`);
-                  }
-                } else {
-                  console.log(`Missing signInTime or signOutTime for ${date}`);
-                }
-              }
-            });
-          }
-        });
 
-        // Calculate average actual work hours
-        if (daysWithSignInOut > 0) {
-          const avgHours = totalWorkHours / daysWithSignInOut;
-          setAvgActualWorkHours(avgHours.toFixed(2)); // Round to 2 decimal places
-        } else {
-          setAvgActualWorkHours(0); // Set to 0 if no valid entries found
-        }
-
-      } catch (error) {
-        console.error("Error fetching actual work hours: ", error);
-      }
-    }
-  };
-
-  useEffect(() => {
-    fetchActualWorkHours();
-  }, [employeeId, currentMonthh]);
 
   return (
     <div className={styles.container}>
       <Header />
-
-      {/* Cards Section */}
-      <div className={styles.cardsContainer}>
-        <div className={styles.card}>
-          <h3>Avg. Work Hrs</h3>
-          <p>8:00 Hrs</p>
-        </div>
-        <div className={styles.card}>
-          <h3>Avg. Actual Work Hrs</h3>
-          <p>{avgActualWorkHours} Hrs</p>
-        </div>
-        <div className={styles.card}>
-          <h3>Penalty Days</h3>
-          <p>2</p>
-        </div>
-      </div>
-
       {/* Calendar Section */}
       <div className={styles.calendarContainer}>
         <div className={styles.calendarHeader}>
           <button onClick={prevMonth}>&lt; Prev</button>
-          <div>{currentMonth.format('MMMM YYYY')}</div>
+          <div>{currentMonth.format(' D MMMM YYYY')}</div>
           <button onClick={nextMonth}>Next &gt;</button>
         </div>
 
@@ -190,8 +162,7 @@ const Attendance = () => {
             const dateKey = currentMonth.format('YYYY-MM') + '-' + (day < 10 ? '0' + day : day);
             const status = attendanceData[dateKey] || 'Absent'; // Default to 'Absent'
             const currentDate = dayjs(`${currentMonth.format('YYYY-MM')}-${day}`, 'YYYY-MM-DD');
-            
-            // Skip future days
+
             if (currentDate.isAfter(today, 'day')) {
               return (
                 <div key={day} className={styles.calendarDay}>
@@ -203,12 +174,17 @@ const Attendance = () => {
             return (
               <div
                 key={day}
-                className={`${styles.calendarDay} ${status === 'Present' ? styles.presentDay : ''}`}
+                className={`${styles.calendarDay} ${status === 'Present' ? styles.presentDay :
+                  status === 'On Leave' ? styles.onLeaveDay :
+                  status === 'Absent' ? styles.absentDay :
+                    ''}`}
                 onClick={() => handleAttendance(day)}
               >
                 <div className={styles.dayLabel}>{day}</div>
                 <button
-                  className={`${styles.statusButton} ${status === 'Absent' ? 'absent' : 'present'}`}
+                  className={`${styles.statusButton} ${status === 'Absent' ? 'absent' :
+                    status === 'Present' ? 'present' :
+                      'on-leave'}`}
                 >
                   {status}
                 </button>
@@ -217,6 +193,7 @@ const Attendance = () => {
           })}
         </div>
       </div>
+
     </div>
   );
 };
