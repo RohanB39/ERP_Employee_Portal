@@ -141,11 +141,11 @@
 
   /* Style for present days */
 .presentDay {
-    background-color: #4caf50; /* Green background for present days */
+    background-color: #4caf50; 
   }
   
   .statusButton.present {
-    background-color: #4caf50;
+    background-color: #65a467;
     color: white;
   }
   
@@ -153,8 +153,20 @@
     background-color: #f44336;
     color: white;
   }
-  
-  
+
+  .onLeaveDay {
+    background-color: orange;
+}
+
+.absentDay {
+  background-color: rgb(221, 85, 85);
+}
+
+.statusButton.on-leave {
+    color: white;
+    background-color: rgb(235, 191, 110);
+}
+
   /* Responsive Design for Smaller Screens */
   @media (max-width: 768px) {
     .calendarGrid {
