@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import style from './GoodThoughts.module.css';
-import { useLocation } from 'react-router-dom';
+import { useEmployee } from '../../../EmployeeContext';
 import { doc, getDoc } from 'firebase/firestore';
 import { fireDB } from '../../Firebase/FirebaseConfig';
 
 const GoodThoughts = () => {
-    const location = useLocation();
-    const employeeId = location.state?.employeeId;
+    const { employeeId, setEmployeeId } = useEmployee();
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [error, setError] = useState('');

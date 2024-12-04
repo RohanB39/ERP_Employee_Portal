@@ -4,7 +4,7 @@ import illu from '../../../assets/gt_illustration_6.svg';
 import track from '../../../assets/track.svg';
 import payslip from '../../../assets/payslip.svg';
 import ItDec from '../../../assets/itDec.svg';
-import { useLocation } from 'react-router-dom';
+import { useEmployee } from '../../../EmployeeContext';
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { fireDB } from '../../Firebase/FirebaseConfig';
 import Swipes from './Swpies/Swipes';
@@ -14,8 +14,7 @@ const Cards = () => {
     const [currentDate, setCurrentDate] = useState('');
     const [currentDay, setCurrentDay] = useState('');
     const [currentTime, setCurrentTime] = useState('');
-    const location = useLocation();
-    const employeeId = location.state?.employeeId
+    const { employeeId, setEmployeeId } = useEmployee();
     const [isSignedIn, setIsSignedIn] = useState(false);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');

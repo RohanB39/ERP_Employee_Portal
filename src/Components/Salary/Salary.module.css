@@ -1,0 +1,106 @@
+.dashboardContainer {
+  min-height: 100vh;
+  padding: 20px;
+  font-family: "Arial", sans-serif;
+  color: #333;
+}
+
+.dashboardContent {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+.title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.chartsContainer {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.chartBox {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  width: 45%;
+  margin-bottom: 20px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.chartTitle {
+  font-size: 1.5rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.chartPlaceholder {
+  height: 200px;
+  background: radial-gradient(circle, #f3f3f3, #ececec);
+  border-radius: 50%;
+  line-height: 200px;
+  font-size: 1rem;
+  color: #999;
+}
+
+.infoCards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 30px;
+  }
+  
+  .infoCard {
+    flex: 1;
+    min-width: 250px;
+    max-width: 300px;
+    background: white;
+    color: rgb(13, 13, 13);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .infoCard h3 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #0b0b0b;
+  }
+  
+  .infoCard p {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .infoCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Media Query for Mobile Screens */
+  @media (max-width: 768px) {
+    .infoCards {
+      flex-direction: column; /* Stack cards vertically on smaller screens */
+      align-items: center;
+    }
+  
+    .infoCard {
+      max-width: 100%; /* Make cards take full width */
+      min-width: unset;
+    }
+  }
+  
