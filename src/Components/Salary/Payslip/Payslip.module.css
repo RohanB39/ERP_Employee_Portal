@@ -37,38 +37,112 @@
     font-weight: bold;
   }
   
-  .payslipCard {
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
-    margin: 20px auto;
-    padding: 20px;
-    text-align: left;
-  }
-  
-  .cardTitle {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    color: #007bff;
-  }
-  
-  .cardContent {
-    display: grid;
-    gap: 10px;
-  }
-  
-  .cardRow {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-    font-size: 1rem;
-  }
-  
-  .netSalary {
-    font-weight: bold;
-    color: #28a745;
-  }
+  /* Payslip Card Styling */
+.payslipCard {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cardTitle {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Employee Info Section Styling */
+.employeeInfo {
+  margin-bottom: 20px;
+  border-bottom: 2px dotted #ccc;
+  padding-bottom: 20px;
+}
+
+.employeeRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.employeeLabel {
+  font-weight: bold;
+  color: #555;
+  font-size: 16px;
+}
+
+.employeeValue {
+  font-size: 16px;
+  color: #333;
+  text-align: right;
+}
+
+/* Payslip Table-like Layout */
+.cardContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.cardRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  padding: 8px 0px;
+  border-bottom: 1px solid #f1f1f1;
+  border-right: 3px solid #f1f1f1;
+  border-top-right-radius: 10px;
+}
+
+.cardRow span:first-child {
+  font-weight: bold;
+  color: #555;
+}
+
+.cardRow span:last-child {
+  color: #333;
+  text-align: right;
+}
+
+/* Dotted Border Styling for Card Header */
+.cardTitle {
+  border-bottom: 2px dotted #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+/* Optional: Add a bit of spacing between rows if desired */
+.cardContent .cardRow {
+  padding: 12px 0;
+}
+
+.netP {
+  font-weight: 600;
+  color: green !important;
+}
+
+.deduction {
+  font-weight: 600;
+  color: red !important;
+}
+
+.netpayi {
+  border-top: 2px dotted #ddd;
+  width: 100%;
+  padding: 20px 0px;
+  display: flex;
+  justify-content: end;
+}
+
+.cardRown {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  padding: 8px 0px;
+}
+
+
   
   @media (max-width: 768px) {
     .content {
